@@ -36,17 +36,21 @@ do_build() {
 	local image=${1}-minimal
 	local image_name=${1}
 	local os_packages=${packages}
+	local os_elements=${elements}
 	echo "Building ${image}-${flavors[$image]}..."
 	export DIB_RELEASE=${flavors[$image]}
 	# Some defaults
 	export DIB_YUM_MINIMAL_CREATE_INTERFACES=1 # centos dhcp setup
 	if [[ ${image_name} == ubuntu ]]; then
 		os_packages="${packages},iputils-ping"
-	else
+	elif [[ ${image_name} == centos ]]; then
+		os_packages="${packages},iputils"
+		os_elements="${elements} epel"
+	elif [[ ${image_name} == opensuse ]]; then
 		os_packages="${packages},iputils"
 	fi
 	disk-image-create -t qcow2 -u --no-tmpfs -p ${os_packages} \
-		--image-size 10G -o ${image_name}.qcow2 ${elements} $image
+		--image-size 10G -o ${image_name}.qcow2 ${os_elements} $image
 	sha256sum ${image_name}.qcow2 > ${image_name}.qcow2.sha256.txt
 	echo "Done!"
 }

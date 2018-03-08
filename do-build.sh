@@ -6,7 +6,7 @@ ONE_DISTRO=${ONE_DISTRO:-}
 
 declare -A flavors=( ["ubuntu-minimal"]="xenial" ["opensuse-minimal"]="42.3" ["centos-minimal"]="7" )
 declare -r elements="vm simple-init devuser growroot openssh-server"
-declare -r packages="vim,gdb,strace,htop,moreutils"
+declare -r packages="vim,gdb,strace,htop,moreutils,curl"
 declare -r one_distro=${1}
 declare -r BASE_PATH=$(dirname $(readlink -f $0) | sed "s@/xci/.*@@")
 

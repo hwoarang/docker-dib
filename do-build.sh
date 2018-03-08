@@ -30,7 +30,7 @@ curl -s https://git.opnfv.org/releng-xci/plain/xci/scripts/vm/id_rsa_for_dib.pub
 
 echo "Installing diskimage-builder"
 
-sudo -H pip install -q diskimage-builder==2.9.0
+sudo -H pip install -q diskimage-builder==2.11.0
 
 do_build() {
 	local image=${1}-minimal

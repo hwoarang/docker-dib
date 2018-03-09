@@ -6,7 +6,7 @@ ONE_DISTRO=${ONE_DISTRO:-}
 
 declare -A flavors=( ["ubuntu-minimal"]="xenial" ["opensuse-minimal"]="42.3" ["centos-minimal"]="7" )
 declare -r elements="vm simple-init devuser growroot openssh-server"
-declare -r packages="vim,gdb,strace,htop,moreutils,curl"
+declare -r packages="vim,gdb,strace,htop,moreutils,curl,iptables,bridge-utils"
 declare -r one_distro=${1}
 declare -r BASE_PATH=$(dirname $(readlink -f $0) | sed "s@/xci/.*@@")
 
@@ -42,7 +42,7 @@ do_build() {
 	# Some defaults
 	export DIB_YUM_MINIMAL_CREATE_INTERFACES=1 # centos dhcp setup
 	if [[ ${image_name} == ubuntu ]]; then
-		os_packages="${packages},iputils-ping"
+		os_packages="${packages},iputils-ping,vlan"
 	elif [[ ${image_name} == centos ]]; then
 		os_packages="${packages},iputils"
 		os_elements="${elements} epel"
